@@ -26,6 +26,19 @@ def solve_aabf363d(x):
 
 
 
+def solve_a79310a0(x):
+
+    y = np.zeros((x.shape[0], x.shape[1]), dtype=int)
+
+    for i in range(x.shape[0]):
+        for j in range(x.shape[1]):
+            if x[i][j]!=0:
+                y[i+1][j] = 2
+
+    return y
+
+
+
 
 
 
