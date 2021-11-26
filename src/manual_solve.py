@@ -10,14 +10,24 @@ import re
 ### result. Name them according to the task ID as in the three
 ### examples below. Delete the three examples. The tasks you choose
 ### must be in the data/training directory, not data/evaluation.
-def solve_6a1e5592(x):
+
+
+
+def solve_aabf363d(x):
+    corner_element = x[(x.shape[0]-1)][0]
+    x = np.where(x == corner_element, 0, x)
+
+    for i in range(x.shape[0]):
+        for j in range(x.shape[1]):
+            if x[i][j]!=0:
+                x[i][j] = corner_element
+
     return x
 
-def solve_b2862040(x):
-    return x
 
-def solve_05269061(x):
-    return x
+
+
+
 
 
 def main():
@@ -25,11 +35,11 @@ def main():
     # like solve_abcd1234(), and run them.
 
     # regex to match solve_* functions and extract task IDs
-    p = r"solve_([a-f0-9]{8})" 
+    p = r"solve_([a-f0-9]{8})"
     tasks_solvers = []
     # globals() gives a dict containing all global names (variables
     # and functions), as name: value pairs.
-    for name in globals(): 
+    for name in globals():
         m = re.match(p, name)
         if m:
             # if the name fits the pattern eg solve_abcd1234
@@ -43,14 +53,14 @@ def main():
         json_filename = os.path.join(directory, ID + ".json")
         data = read_ARC_JSON(json_filename)
         test(ID, solve_fn, data)
-    
+
 def read_ARC_JSON(filepath):
     """Given a filepath, read in the ARC task data which is in JSON
     format. Extract the train/test input/output pairs of
     grids. Convert each grid to np.array and return train_input,
     train_output, test_input, test_output."""
-    
-    # Open the JSON file and load it 
+
+    # Open the JSON file and load it
     data = json.load(open(filepath))
 
     # Extract the train/test input/output grids. Each grid will be a
@@ -77,7 +87,7 @@ def test(taskID, solve, data):
         yhat = solve(x)
         show_result(x, y, yhat)
 
-        
+
 def show_result(x, y, yhat):
     print("Input")
     print(x)
@@ -93,4 +103,3 @@ def show_result(x, y, yhat):
 
 
 if __name__ == "__main__": main()
-
