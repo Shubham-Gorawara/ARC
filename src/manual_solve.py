@@ -13,69 +13,108 @@ import re
 
 
 
-def solve_aabf363d(x):
+# def solve_aabf363d(x):
+#
+#     corner_element = x[(x.shape[0]-1)][0]
+#     x = np.where(x == corner_element, 0, x)
+#
+#     for i in range(x.shape[0]):
+#         for j in range(x.shape[1]):
+#             if x[i][j]!=0:
+#                 x[i][j] = corner_element
+#
+#     return x
+#
+#
+#
+# def solve_a79310a0(x):
+#
+#     y = np.zeros((x.shape[0], x.shape[1]), dtype=int)
+#
+#     for i in range(x.shape[0]):
+#         for j in range(x.shape[1]):
+#             if x[i][j]!=0:
+#                 y[i+1][j] = 2
+#
+#     return y
+#
+#
+#
+# def solve_25ff71a9(x):
+#
+#     y = np.zeros((x.shape[0], x.shape[1]), dtype=int)
+#
+#     for i in range(x.shape[0]):
+#         for j in range(x.shape[1]):
+#             if x[i][j]!=0:
+#                 y[i+1][j] = x[i][j]
+#
+#     return y
+#
+#
+#
+# def solve_3ac3eb23(x):
+#
+#     list_colors = []
+#     list_positions = []
+#
+#     for i in range(x.shape[0]):
+#         for j in range(x.shape[1]):
+#             if x[i][j]!=0:
+#                 list_colors.append(x[i][j])
+#                 list_positions.append(j)
+#
+#     for i in range(1, x.shape[0]):
+#         for j in range(x.shape[1]):
+#             if i%2 !=0:
+#                 for k in range(len(list_colors)):
+#                     x[i][list_positions[k] - 1] = list_colors[k]
+#                     x[i][list_positions[k] + 1] = list_colors[k]
+#
+#             else:
+#                 for k in range(len(list_colors)):
+#                     x[i][list_positions[k]] = list_colors[k]
+#
+#     return x
 
-    corner_element = x[(x.shape[0]-1)][0]
-    x = np.where(x == corner_element, 0, x)
+
+
+
+def solve_c1d99e64(x):
+
+    # Number of rows of red color that will be formed
+    rows = 0
+
+    # for rows
+    for i in range(x.shape[0]):
+        ct = 0
+        for j in range(x.shape[1]):
+            if x[i][j] == 0:
+                ct += 1
+        if ct == x.shape[1]:
+            rows += 1
+            for k in range(x.shape[1]):
+                x[i][k] = 2 # color red
+
+    # for columns and applying same code after transpose
+    x = np.transpose(x)
 
     for i in range(x.shape[0]):
+        ct = 0
         for j in range(x.shape[1]):
-            if x[i][j]!=0:
-                x[i][j] = corner_element
+            if x[i][j] == 0:
+                ct += 1
+        if ct == x.shape[1] - rows: # since the cells will be red after changing color in rows, adjusting for number of black cells in row
+            for k in range(x.shape[1]):
+                x[i][k] = 2 # color red
 
+    x = np.transpose(x)
+
+    print(x)
     return x
 
 
 
-def solve_a79310a0(x):
-
-    y = np.zeros((x.shape[0], x.shape[1]), dtype=int)
-
-    for i in range(x.shape[0]):
-        for j in range(x.shape[1]):
-            if x[i][j]!=0:
-                y[i+1][j] = 2
-
-    return y
-
-
-
-def solve_25ff71a9(x):
-
-    y = np.zeros((x.shape[0], x.shape[1]), dtype=int)
-
-    for i in range(x.shape[0]):
-        for j in range(x.shape[1]):
-            if x[i][j]!=0:
-                y[i+1][j] = x[i][j]
-
-    return y
-
-
-
-def solve_3ac3eb23(x):
-
-    list_colors = []
-    list_positions = []
-
-    for i in range(x.shape[0]):
-        for j in range(x.shape[1]):
-            if x[i][j]!=0:
-                list_colors.append(x[i][j])
-                list_positions.append(j)
-
-    for i in range(1, x.shape[0]):
-        for j in range(x.shape[1]):
-            if i%2 !=0:
-                for k in range(len(list_colors)):
-                    x[i][list_positions[k] - 1] = list_colors[k]
-                    x[i][list_positions[k] + 1] = list_colors[k]
-
-            else:
-                for k in range(len(list_colors)):
-                    x[i][list_positions[k]] = list_colors[k]
-
-    return x
 
 
 
