@@ -14,6 +14,7 @@ import re
 
 
 def solve_aabf363d(x):
+
     corner_element = x[(x.shape[0]-1)][0]
     x = np.where(x == corner_element, 0, x)
 
@@ -38,6 +39,17 @@ def solve_a79310a0(x):
     return y
 
 
+
+def solve_25ff71a9(x):
+
+    y = np.zeros((x.shape[0], x.shape[1]), dtype=int)
+
+    for i in range(x.shape[0]):
+        for j in range(x.shape[1]):
+            if x[i][j]!=0:
+                y[i+1][j] = x[i][j]
+
+    return y
 
 
 
