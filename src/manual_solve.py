@@ -53,6 +53,30 @@ def solve_25ff71a9(x):
 
 
 
+def solve_3ac3eb23(x):
+
+    list_colors = []
+    list_positions = []
+
+    for i in range(x.shape[0]):
+        for j in range(x.shape[1]):
+            if x[i][j]!=0:
+                list_colors.append(x[i][j])
+                list_positions.append(j)
+
+    for i in range(1, x.shape[0]):
+        for j in range(x.shape[1]):
+            if i%2 !=0:
+                for k in range(len(list_colors)):
+                    x[i][list_positions[k] - 1] = list_colors[k]
+                    x[i][list_positions[k] + 1] = list_colors[k]
+
+            else:
+                for k in range(len(list_colors)):
+                    x[i][list_positions[k]] = list_colors[k]
+
+    return x
+
 
 
 def main():
