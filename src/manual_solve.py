@@ -27,136 +27,173 @@ References
 
 
 
-def solve_aabf363d(x):
+# def solve_aabf363d(x):
+#
+#     """
+#     Required transformation: The color of the bottom left-most cell in the grid is captured, then that cell is turned black and all the other non-black cells are changed to the color of the bottom left-most cell that was captured earlier.
+#
+#     Grids solved correctly: All training and testing grids were solved correctly.
+#     """
+#
+#     corner_element = x[(x.shape[0]-1)][0]
+#     x = np.where(x == corner_element, 0, x)
+#
+#     for i in range(x.shape[0]):
+#         for j in range(x.shape[1]):
+#             if x[i][j]!=0:
+#                 x[i][j] = corner_element
+#
+#     return x
+#
+#
+#
+# def solve_a79310a0(x):
+#
+#     """
+#     Required transformation: All cells are displaced downwards along the y-axis by a unit of 1 and their color is changed from blue to red.
+#
+#     Grids solved correctly: All training and testing grids were solved correctly.
+#     """
+#
+#     y = np.zeros((x.shape[0], x.shape[1]), dtype=int)
+#
+#     for i in range(x.shape[0]):
+#         for j in range(x.shape[1]):
+#             if x[i][j]!=0:
+#                 y[i+1][j] = 2
+#
+#     return y
+#
+#
+#
+# def solve_25ff71a9(x):
+#
+#     """
+#     Required transformation: All cells are displaced downwards along the y-axis by a unit of 1.
+#
+#     Grids solved correctly: All training and testing grids were solved correctly.
+#     """
+#
+#     y = np.zeros((x.shape[0], x.shape[1]), dtype=int)
+#
+#     for i in range(x.shape[0]):
+#         for j in range(x.shape[1]):
+#             if x[i][j]!=0:
+#                 y[i+1][j] = x[i][j]
+#
+#     return y
+#
+#
+#
+# def solve_3ac3eb23(x):
+#
+#     """
+#     Required transformation: position of non-black cells in the first row and their colors are noted. Then in each following row, alternating 2 cells and 1 cell of each of those colors are placed till the end of the grid. The 2 cells are placed such that they are spaced by 1 unit around the respective cells in the first row and the 1 cell in placed in the same column as the respective cells in the first row.
+#
+#     Grids solved correctly: All training and testing grids were solved correctly.
+#     """
+#
+#     list_colors = []
+#     list_positions = []
+#
+#     for i in range(x.shape[0]):
+#         for j in range(x.shape[1]):
+#             if x[i][j]!=0:
+#                 list_colors.append(x[i][j])
+#                 list_positions.append(j)
+#
+#     for i in range(1, x.shape[0]):
+#         for j in range(x.shape[1]):
+#             if i%2 !=0:
+#                 for k in range(len(list_colors)):
+#                     x[i][list_positions[k] - 1] = list_colors[k]
+#                     x[i][list_positions[k] + 1] = list_colors[k]
+#
+#             else:
+#                 for k in range(len(list_colors)):
+#                     x[i][list_positions[k]] = list_colors[k]
+#
+#     return x
+#
+#
+#
+#
+# def solve_c1d99e64(x):
+#
+#     """
+#     Required transformation: in rows and columns consisting of only black cells, the black cells are replaced by red cells.
+#
+#     Grids solved correctly: All training and testing grids were solved correctly.
+#     """
+#
+#     # Number of rows of red color that will be formed
+#     rows = 0
+#
+#     # for rows
+#     for i in range(x.shape[0]):
+#         ct = 0
+#         for j in range(x.shape[1]):
+#             if x[i][j] == 0:
+#                 ct += 1
+#         if ct == x.shape[1]:
+#             rows += 1
+#             for k in range(x.shape[1]):
+#                 x[i][k] = 2 # color red
+#
+#     # for columns and applying same code after transpose, except altering to account for number of black cells
+#     x = np.transpose(x)
+#
+#     for i in range(x.shape[0]):
+#         ct = 0
+#         for j in range(x.shape[1]):
+#             if x[i][j] == 0:
+#                 ct += 1
+#         if ct == x.shape[1] - rows: # since the cells will be red after changing color in rows, adjusting for number of black cells in row
+#             for k in range(x.shape[1]):
+#                 x[i][k] = 2 # color red
+#
+#     x = np.transpose(x) # Returning to original shape
+#
+#     return x
 
-    """
-    Required transformation: The color of the bottom left-most cell in the grid is captured, then that cell is turned black and all the other non-black cells are changed to the color of the bottom left-most cell that was captured earlier.
 
-    Grids solved correctly: All training and testing grids were solved correctly.
-    """
 
-    corner_element = x[(x.shape[0]-1)][0]
-    x = np.where(x == corner_element, 0, x)
+
+
+def solve_d4a91cb9(x):
 
     for i in range(x.shape[0]):
         for j in range(x.shape[1]):
-            if x[i][j]!=0:
-                x[i][j] = corner_element
+            if x[i][j] == 8:
+                blue_position = (i,j)
+            elif x[i][j] == 2:
+                red_position = (i,j)
+
+    if (blue_position[0] < red_position[0]) and (blue_position[1] < red_position[1]):
+        for i in range(blue_position[0]+1, red_position[0]+1):
+            x[i][blue_position[1]] = 4
+        for j in range(blue_position[1], red_position[1]):
+            x[red_position[0]][j] = 4
+
+    elif (red_position[0] > blue_position[0]) and (red_position[1] < blue_position[1]):
+        for i in range(blue_position[0]+1, red_position[0]+1):
+            x[i][blue_position[1]] = 4
+        for j in range(red_position[1]+1, blue_position[1]+1):
+            x[red_position[0]][j] = 4
+
+    elif (red_position[0] < blue_position[0]) and (red_position[1] > blue_position[1]):
+        for i in range(red_position[0], blue_position[0]):
+            x[i][blue_position[1]] = 4
+        for j in range(blue_position[1], red_position[1]):
+            x[red_position[0]][j] = 4
+
+    elif (red_position[0] < blue_position[0]) and (red_position[1] < blue_position[1]):
+        for i in range(red_position[0], blue_position[0]):
+            x[i][blue_position[1]] = 4
+        for j in range(red_position[1]+1, blue_position[1]+1):
+            x[red_position[0]][j] = 4
 
     return x
-
-
-
-def solve_a79310a0(x):
-
-    """
-    Required transformation: All cells are displaced downwards along the y-axis by a unit of 1 and their color is changed from blue to red.
-
-    Grids solved correctly: All training and testing grids were solved correctly.
-    """
-
-    y = np.zeros((x.shape[0], x.shape[1]), dtype=int)
-
-    for i in range(x.shape[0]):
-        for j in range(x.shape[1]):
-            if x[i][j]!=0:
-                y[i+1][j] = 2
-
-    return y
-
-
-
-def solve_25ff71a9(x):
-
-    """
-    Required transformation: All cells are displaced downwards along the y-axis by a unit of 1.
-
-    Grids solved correctly: All training and testing grids were solved correctly.
-    """
-
-    y = np.zeros((x.shape[0], x.shape[1]), dtype=int)
-
-    for i in range(x.shape[0]):
-        for j in range(x.shape[1]):
-            if x[i][j]!=0:
-                y[i+1][j] = x[i][j]
-
-    return y
-
-
-
-def solve_3ac3eb23(x):
-
-    """
-    Required transformation: position of non-black cells in the first row and their colors are noted. Then in each following row, alternating 2 cells and 1 cell of each of those colors are placed till the end of the grid. The 2 cells are placed such that they are spaced by 1 unit around the respective cells in the first row and the 1 cell in placed in the same column as the respective cells in the first row.
-
-    Grids solved correctly: All training and testing grids were solved correctly.
-    """
-
-    list_colors = []
-    list_positions = []
-
-    for i in range(x.shape[0]):
-        for j in range(x.shape[1]):
-            if x[i][j]!=0:
-                list_colors.append(x[i][j])
-                list_positions.append(j)
-
-    for i in range(1, x.shape[0]):
-        for j in range(x.shape[1]):
-            if i%2 !=0:
-                for k in range(len(list_colors)):
-                    x[i][list_positions[k] - 1] = list_colors[k]
-                    x[i][list_positions[k] + 1] = list_colors[k]
-
-            else:
-                for k in range(len(list_colors)):
-                    x[i][list_positions[k]] = list_colors[k]
-
-    return x
-
-
-
-
-def solve_c1d99e64(x):
-
-    """
-    Required transformation: in rows and columns consisting of only black cells, the black cells are replaced by red cells.
-
-    Grids solved correctly: All training and testing grids were solved correctly.
-    """
-
-    # Number of rows of red color that will be formed
-    rows = 0
-
-    # for rows
-    for i in range(x.shape[0]):
-        ct = 0
-        for j in range(x.shape[1]):
-            if x[i][j] == 0:
-                ct += 1
-        if ct == x.shape[1]:
-            rows += 1
-            for k in range(x.shape[1]):
-                x[i][k] = 2 # color red
-
-    # for columns and applying same code after transpose, except altering to account for number of black cells
-    x = np.transpose(x)
-
-    for i in range(x.shape[0]):
-        ct = 0
-        for j in range(x.shape[1]):
-            if x[i][j] == 0:
-                ct += 1
-        if ct == x.shape[1] - rows: # since the cells will be red after changing color in rows, adjusting for number of black cells in row
-            for k in range(x.shape[1]):
-                x[i][k] = 2 # color red
-
-    x = np.transpose(x) # Returning to original shape
-
-    return x
-
-
 
 
 
