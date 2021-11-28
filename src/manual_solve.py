@@ -160,41 +160,65 @@ References
 
 
 
-def solve_d4a91cb9(x):
+# def solve_d4a91cb9(x):
+#
+#     for i in range(x.shape[0]):
+#         for j in range(x.shape[1]):
+#             if x[i][j] == 8:
+#                 blue_position = (i,j)
+#             elif x[i][j] == 2:
+#                 red_position = (i,j)
+#
+#     if (blue_position[0] < red_position[0]) and (blue_position[1] < red_position[1]):
+#         for i in range(blue_position[0]+1, red_position[0]+1):
+#             x[i][blue_position[1]] = 4
+#         for j in range(blue_position[1], red_position[1]):
+#             x[red_position[0]][j] = 4
+#
+#     elif (red_position[0] > blue_position[0]) and (red_position[1] < blue_position[1]):
+#         for i in range(blue_position[0]+1, red_position[0]+1):
+#             x[i][blue_position[1]] = 4
+#         for j in range(red_position[1]+1, blue_position[1]+1):
+#             x[red_position[0]][j] = 4
+#
+#     elif (red_position[0] < blue_position[0]) and (red_position[1] > blue_position[1]):
+#         for i in range(red_position[0], blue_position[0]):
+#             x[i][blue_position[1]] = 4
+#         for j in range(blue_position[1], red_position[1]):
+#             x[red_position[0]][j] = 4
+#
+#     elif (red_position[0] < blue_position[0]) and (red_position[1] < blue_position[1]):
+#         for i in range(red_position[0], blue_position[0]):
+#             x[i][blue_position[1]] = 4
+#         for j in range(red_position[1]+1, blue_position[1]+1):
+#             x[red_position[0]][j] = 4
+#
+#     return x
+
+
+
+
+def solve_ac0a08a4(x):
+
+    colors = []
+    positions = []
 
     for i in range(x.shape[0]):
         for j in range(x.shape[1]):
-            if x[i][j] == 8:
-                blue_position = (i,j)
-            elif x[i][j] == 2:
-                red_position = (i,j)
+            if x[i][j]!=0:
+                colors.append(x[i][j])
+                positions.append((i,j))
 
-    if (blue_position[0] < red_position[0]) and (blue_position[1] < red_position[1]):
-        for i in range(blue_position[0]+1, red_position[0]+1):
-            x[i][blue_position[1]] = 4
-        for j in range(blue_position[1], red_position[1]):
-            x[red_position[0]][j] = 4
+    distinct_colors = len(colors)
 
-    elif (red_position[0] > blue_position[0]) and (red_position[1] < blue_position[1]):
-        for i in range(blue_position[0]+1, red_position[0]+1):
-            x[i][blue_position[1]] = 4
-        for j in range(red_position[1]+1, blue_position[1]+1):
-            x[red_position[0]][j] = 4
+    y = np.zeros((x.shape[0]*distinct_colors, x.shape[1]*distinct_colors), dtype=int)
 
-    elif (red_position[0] < blue_position[0]) and (red_position[1] > blue_position[1]):
-        for i in range(red_position[0], blue_position[0]):
-            x[i][blue_position[1]] = 4
-        for j in range(blue_position[1], red_position[1]):
-            x[red_position[0]][j] = 4
+    for i in range(distinct_colors):
+        for j in range(distinct_colors):
+            for k in range(distinct_colors):
+                y[(positions[i][0]*distinct_colors) + j][(positions[i][1]*distinct_colors) + k] = colors[i]
 
-    elif (red_position[0] < blue_position[0]) and (red_position[1] < blue_position[1]):
-        for i in range(red_position[0], blue_position[0]):
-            x[i][blue_position[1]] = 4
-        for j in range(red_position[1]+1, blue_position[1]+1):
-            x[red_position[0]][j] = 4
-
-    return x
-
+    return y
 
 
 
