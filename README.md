@@ -2,6 +2,9 @@
 
 This repository contains the ARC task data, as well as a browser-based interface for humans to try their hand at solving the tasks manually.
 
+In addition, this repository also consists of hand-coded solutions for the following 6 tasks from the data/training directory: "aabf363d", "a79310a0", "3ac3eb23", "c1d99e64", "d4a91cb9", "ac0a08a4".
+These tasks have been solved using basic numpy functions and operations, and have been implemented in the form of functions named as "solve_" followed by the respective task number in the src/manual_solve.py file. The solutions for these tasks are processed and the results validated on running the same src/manual_solve.py file.
+
 *"ARC can be seen as a general artificial intelligence benchmark, as a program synthesis benchmark, or as a psychometric intelligence test. It is targeted at both humans and artificially intelligent systems that aim at emulating a human-like form of general fluid intelligence."*
 
 A complete description of the dataset, its goals, and its underlying logic, can be found in: [The Measure of Intelligence](https://arxiv.org/abs/1911.01547).
