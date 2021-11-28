@@ -20,9 +20,20 @@ GitHub repository link = https://github.com/Shubham-Gorawara/ARC
 """
 References
 
-1) Numpy transpose docs - "https://numpy.org/doc/stable/reference/generated/numpy.transpose.html", accessed on 21th November 2021
-2) Numpy numpy.zeroes docs - "https://numpy.org/doc/stable/reference/generated/numpy.zeros.html", accessed on 21th November 2021
-3) Numpy numpy.where docs - "https://numpy.org/doc/stable/reference/generated/numpy.where.html", accessed on 21th November 2021
+1) Numpy transpose docs - "https://numpy.org/doc/stable/reference/generated/numpy.transpose.html", accessed on 21st November 2021
+2) Numpy numpy.zeroes docs - "https://numpy.org/doc/stable/reference/generated/numpy.zeros.html", accessed on 21st November 2021
+3) Numpy numpy.where docs - "https://numpy.org/doc/stable/reference/generated/numpy.where.html", accessed on 21st November 2021
+4) Article on NumPy Introduction  - "https://www.w3schools.com/python/numpy/numpy_intro.asp", accessed on 28th November 2021
+"""
+
+"""
+Summary
+
+Hand-coded solutions for 6 tasks from the data/training directory namely, "aabf363d", "a79310a0", "3ac3eb23", "c1d99e64", "d4a91cb9", "ac0a08a4" were developed.
+
+The only library used for all of these tasks was numpy, which is an open-source library and allows for fast and optimised operations involving matrices. The commonalities  between the different features are that the tasks involved iterating over the rows and columns of the numpy arrays using for loops. Also, several of the tasks involved locating the non-black colored cells in the grid which was done using "if-elif-else" conditional statements, and involved saving the values of the colors along with their positions in a list and tuple respectively.
+
+The differences between the different features were that while some tasks required to make changes in the existing matrix, others needed that the dimensions be adjusted by either carrying out a transpose on the matrix (using numpy.transpose()) or a new matrix be initialised (using numpy.zeroes()) with altered dimensions, and then the required changes be made in the new matrix, which was then returned by the function.
 """
 
 
